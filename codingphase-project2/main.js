@@ -1,37 +1,45 @@
-let notify = document.querySelector('.notify');
-let albums = document.querySelectorAll('.album');
-let itemsTotal = document.querySelector('.items-total');
-let saveBtn = document.querySelector('.button');
+// pokemon
+// create data for 3 different pokemons, with their names, type, weaknesses, health, and attack moves(name, attack stat, maximum)
+var pokemons = [
+  {
+    name: 'charmander',
+    type: 'fire',
+    attack: 52,
+    stamina: 39,
+    level: 1
+  },
+  {
+    name: 'charmander',
+    type: 'fire',
+    attack: 52,
+    stamina: 39,
+    level: 1
+  },
+  
+]
 
-let albumsSelected = [];
-let i = 0;
 
-while(i < albums.length) {
-  albums[i].onclick = function(e) {
-    let albumTitle = this.querySelector('.title').textContent;
+var attack = 20;
+var level = 10;
+var stack = 1.3;
+var stamina = 39;
+
+// create a formula for attacks
+console.log((attack * level ) * stack / 7)
 
 
-    if(!this.className.includes('selected')) {
-      this.classList.add('selected')
-      albumsSelected.push(albumTitle)
-    } else {
-      this.classList.remove('selected')
-      albumsSelected = albumsSelected.filter(function(item){
-        return item !== albumTitle;
-      })
-    }
 
-   console.log(albumsSelected)
-  }
+// create a formula for health
+//HP = 0.20 x Sqrt(Pokemon_level) x (HP_base_stat)
+console.log(((0.20 * Math.sqrt(level)) * stamina) * 15)
 
-  i++;
-}
 
-saveBtn.onclick = function() {
-  notify.classList.add('active');
-  itemsTotal.textContent = `${albumsSelected.length} items saved`;
 
-  setTimeout(function() {
-    notify.classList.remove('active')
-  }, 2000)
-}
+
+// let user choose 1 and then assign a random pokemon to battle thats not the users pokemon
+// p1 vs p2
+
+
+
+
+// when one user loses all his health declare a winner

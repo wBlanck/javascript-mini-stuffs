@@ -10,8 +10,6 @@ while(i < albums.length) {
   albums[i].onclick = function(e) {
     let albumTitle = this.querySelector('.title').textContent;
 
-    
-    
 
     if(!this.className.includes('selected')) {
       this.classList.add('selected')

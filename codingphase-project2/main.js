@@ -1,4 +1,27 @@
-// pokemon
+let gameState = {
+  userPokemon: '',
+  rivalPokemon: ''
+}
+
+let pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character');
+
+i = 0;
+
+while(i < pokemonsEl.length){
+  pokemonsEl[i].onclick = function () {
+    let pokemonName = this.dataset.pokemon;
+    gameState.userPokemon = pokemonName;
+  }
+  console.log(gameState.userPokemon)
+  i++;
+}
+
+
+
+
+
+
+/* // pokemon
 // create data for 3 different pokemons, with their names, type, weaknesses, health, and attack moves(name, attack stat, maximum)
 var pokemons = [
   {
@@ -43,3 +66,4 @@ console.log(((0.20 * Math.sqrt(level)) * stamina) * 15)
 
 
 // when one user loses all his health declare a winner
+ */

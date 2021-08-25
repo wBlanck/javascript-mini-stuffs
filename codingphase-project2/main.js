@@ -11,9 +11,19 @@ while(i < pokemonsEl.length){
   pokemonsEl[i].onclick = function () {
     let pokemonName = this.dataset.pokemon;
     gameState.userPokemon = pokemonName;
+  
+    cpuPick();
+    console.log(gameState)
   }
-  console.log(gameState.userPokemon)
   i++;
+}
+
+function randomNum(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function cpuPick() {
+  gameState.rivalPokemon = pokemonsEl[randomNum(0,3)].dataset.pokemon;
 }
 
 

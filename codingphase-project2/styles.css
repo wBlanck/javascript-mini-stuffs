@@ -5,6 +5,11 @@
 *{
   box-sizing: border-box;
 }
+body {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 /* SELECT SCREEN ============================================================*/
 .header{
   background: #0a0618; /* Old browsers */
@@ -69,7 +74,11 @@ display: flex;
   border: 3px solid #000;
   float: left;
   margin: 0 25px;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out;
 }
+
+
 
 .select-screen .main .character.charmander{
   background: #FA7A47;
@@ -81,9 +90,12 @@ display: flex;
   background: #64B2FA;
 }
 
+.select-screen .main .character:hover {
+  background-color: #261c53;
+}
 /* BATTLE SCREEN ============================================================*/
 #battle-screen{
-    background: url(//i.imgur.com/UZKEjzG.png) no-repeat center center; 
+    background: url('/UZKEjzG.png') no-repeat center center; 
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
@@ -92,6 +104,13 @@ display: flex;
     padding: 100px 50px;
     overflow: auto;
       height: 100vh;
+      position: relative;
+      transition: top .5s ease-in-out;
+      top: 0;
+}
+
+#battle-screen.active {
+  top: -100vh;
 }
 
 #battle-screen .fight-btn{

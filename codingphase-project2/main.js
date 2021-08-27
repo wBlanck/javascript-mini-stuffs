@@ -78,6 +78,11 @@ while(i < pokemonsEl.length){
     player2Name.innerText = gameState.rivalPokemon;
     
     
+    gameState.currentPokemon[0].health = calcInitHP(gameState.currentPokemon);
+
+    console.log(gameState);
+
+
     // cpu health goes down
 
     // cpu attack
@@ -115,6 +120,11 @@ while(a < attackBtnsEl.length) {
   }
 
   a++;
+}
+
+let calcInitHP = function(user) {
+  
+  return ((0.20 * Math.sqrt(user[0].level)) * user[0].defense) * user[0].hp;
 }
 
 let play = function(userAttack, cpuAttack) {

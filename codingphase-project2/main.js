@@ -39,10 +39,11 @@ let gameState = {
 // elements
 let pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character');
 let battleScreenEl = document.getElementById('battle-screen')
+let attackBtnsEl = document.querySelectorAll('.attack');
 
-let i = 0;
 
 // initial loop
+let i = 0;
 while(i < pokemonsEl.length){
   //add function to all characters on screen select
 
@@ -76,8 +77,7 @@ while(i < pokemonsEl.length){
     player2Img[0].src = currentRivalPokemon[0].img;
     player2Name.innerText = gameState.rivalPokemon;
     
-    // user choose attack
-
+    
     // cpu health goes down
 
     // cpu attack
@@ -97,7 +97,24 @@ while(i < pokemonsEl.length){
     // then who ever gets to health <= 0 loses
 
   }
+  
   i++;
+}
+
+// user choose attack
+let a = 0;
+while(a < attackBtnsEl.length) {
+  let player1HP = document.querySelector('.player1 .inside');
+  let player2HP = document.querySelector('.player2 .inside');
+
+  attackBtnsEl[a].onclick = function() {
+    let attackName = this.dataset.attack;
+    gameState.currentUserAttack = attackName;
+    
+    player1HP.style.width = "50%";
+  }
+
+  a++;
 }
 
 let randomNum = function randomNum(min, max) {

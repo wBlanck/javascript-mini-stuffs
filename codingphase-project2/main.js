@@ -39,10 +39,11 @@ let gameState = {
 // elements
 let pokemonsEl = document.querySelector('.select-screen').querySelectorAll('.character');
 let battleScreenEl = document.getElementById('battle-screen')
+let attackBtnsEl = document.querySelectorAll('.attack');
 
-let i = 0;
 
 // initial loop
+let i = 0;
 while(i < pokemonsEl.length){
   //add function to all characters on screen select
 
@@ -64,27 +65,30 @@ while(i < pokemonsEl.length){
     battleScreenEl.classList.toggle('active')
 
     // select data from current user pokemon
-    let currentPokemon = pokemonDB.filter(function(pokemon){
+    gameState.currentPokemon = pokemonDB.filter(function(pokemon){
       return pokemon.name === gameState.userPokemon;
     })
-    player1Img[0].src = currentPokemon[0].img;
+    player1Img[0].src = gameState.currentPokemon[0].img;
     player1Name.innerText = gameState.userPokemon;
     // select data from current cpu pokemon
-    let currentRivalPokemon = pokemonDB.filter(function(pokemon){
+    gameState.currentRivalPokemon = pokemonDB.filter(function(pokemon){
       return pokemon.name === gameState.rivalPokemon;
     })
-    player2Img[0].src = currentRivalPokemon[0].img;
+    player2Img[0].src = gameState.currentRivalPokemon[0].img;
     player2Name.innerText = gameState.rivalPokemon;
     
-    // user choose attack
+    // current user and cpu pokemon inital health
+    gameState.currentPokemon[0].health = calcInitHP(gameState.currentPokemon);
+    gameState.currentRivalPokemon[0].health = calcInitHP(gameState.currentRivalPokemon);
+
+    console.log(gameState);
+
 
     // cpu health goes down
 
     // cpu attack
 
     // user health goes down
-
-    
 
     // rock > scissors
 
@@ -97,7 +101,90 @@ while(i < pokemonsEl.length){
     // then who ever gets to health <= 0 loses
 
   }
+  
   i++;
+}
+
+
+
+
+
+// user choose attack
+let a = 0;
+while(a < attackBtnsEl.length) {
+  let player1HP = document.querySelector('.player1 .inside');
+  let player2HP = document.querySelector('.player2 .inside');
+
+  attackBtnsEl[a].onclick = function() {
+    let attackName = this.dataset.attack;
+    gameState.currentUserAttack = attackName;
+    
+    play(attackName, gameState.cpuAttack);
+  }
+
+  a++;
+}
+
+let calcInitHP = function(user) {
+  return ((0.20 * Math.sqrt(user[0].level)) * user[0].defense) * user[0].hp;
+}
+
+let attackMove = function(attack, level, stack, critical, enemy) {
+  let attackAmount = ((attack * level ) * (stack * critical)) / 3;
+  
+  console.log(enemy.health)
+  enemy.health = enemy.health - attackAmount;
+  console.log(attackAmount)
+  console.log(enemy.health)
+
+}
+
+
+
+
+let play = function(userAttack, cpuAttack) {
+  let currentPokemon = gameState.currentPokemon[0];
+  let currentRivalPokemon = gameState.currentRivalPokemon[0];
+
+  switch(userAttack){
+    case 'rock':
+      if(cpuAttack == 'paper'){
+        attackMove(currentPokemon.attack,currentPokemon.level,.8,.5, currentRivalPokemon);
+
+        console.log("paper killed rock")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("rock killed scissors")
+      }
+      if(cpuAttack == 'rock'){
+        console.log("draw")
+      }
+
+      /* console.log(userAttack); */
+      break;
+    case 'paper':
+      if(cpuAttack == 'rock'){
+        console.log("paper killed rock")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("scissors killed paper")
+      }
+      if(cpuAttack == 'paper'){
+        console.log("draw")
+      }
+      break;
+    case 'scissors':
+      if(cpuAttack == 'paper'){
+        console.log("scissors killed paper")
+      }
+      if(cpuAttack == 'rock'){
+        console.log("rock killed scissors")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("draw")
+      }
+      break;
+  }
 }
 
 let randomNum = function randomNum(min, max) {
@@ -106,6 +193,7 @@ let randomNum = function randomNum(min, max) {
 
 let cpuPick = function cpuPick() {
   gameState.rivalPokemon = pokemonsEl[randomNum(0,3)].dataset.pokemon;
+  gameState.cpuAttack = attackBtnsEl[randomNum(0,3)].dataset.attack;
 }
 
 

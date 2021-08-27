@@ -65,16 +65,16 @@ while(i < pokemonsEl.length){
     battleScreenEl.classList.toggle('active')
 
     // select data from current user pokemon
-    let currentPokemon = pokemonDB.filter(function(pokemon){
+    gameState.currentPokemon = pokemonDB.filter(function(pokemon){
       return pokemon.name === gameState.userPokemon;
     })
-    player1Img[0].src = currentPokemon[0].img;
+    player1Img[0].src = gameState.currentPokemon[0].img;
     player1Name.innerText = gameState.userPokemon;
     // select data from current cpu pokemon
-    let currentRivalPokemon = pokemonDB.filter(function(pokemon){
+    gameState.currentRivalPokemon = pokemonDB.filter(function(pokemon){
       return pokemon.name === gameState.rivalPokemon;
     })
-    player2Img[0].src = currentRivalPokemon[0].img;
+    player2Img[0].src = gameState.currentRivalPokemon[0].img;
     player2Name.innerText = gameState.rivalPokemon;
     
     
@@ -111,10 +111,50 @@ while(a < attackBtnsEl.length) {
     let attackName = this.dataset.attack;
     gameState.currentUserAttack = attackName;
     
-    player1HP.style.width = "50%";
+    play(attackName, gameState.cpuAttack);
   }
 
   a++;
+}
+
+let play = function(userAttack, cpuAttack) {
+  switch(userAttack){
+    case 'rock':
+      if(cpuAttack == 'paper'){
+        console.log("paper killed rock")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("rock killed scissors")
+      }
+      if(cpuAttack == 'rock'){
+        console.log("draw")
+      }
+
+      /* console.log(userAttack); */
+      break;
+    case 'paper':
+      if(cpuAttack == 'rock'){
+        console.log("paper killed rock")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("scissors killed paper")
+      }
+      if(cpuAttack == 'paper'){
+        console.log("draw")
+      }
+      break;
+    case 'scissors':
+      if(cpuAttack == 'paper'){
+        console.log("scissors killed paper")
+      }
+      if(cpuAttack == 'rock'){
+        console.log("rock killed scissors")
+      }
+      if(cpuAttack == 'scissors'){
+        console.log("draw")
+      }
+      break;
+  }
 }
 
 let randomNum = function randomNum(min, max) {
@@ -123,6 +163,7 @@ let randomNum = function randomNum(min, max) {
 
 let cpuPick = function cpuPick() {
   gameState.rivalPokemon = pokemonsEl[randomNum(0,3)].dataset.pokemon;
+  gameState.cpuAttack = attackBtnsEl[randomNum(0,3)].dataset.attack;
 }
 
 

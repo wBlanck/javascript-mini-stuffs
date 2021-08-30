@@ -57,7 +57,6 @@ let generateQuote = function() {
   author.textContent = newQuote.author;
 
   completeLoading();
-
 }
 
 // Generate new quote on click
